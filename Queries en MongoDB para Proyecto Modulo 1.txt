@@ -1,0 +1,69 @@
+1¿CUANTAS RESERVAS FUERON REALIZADAS EN 2015?
+ En el conteo total de documentos se menciona 119,390
+
+2¿CUANTAS RESERVAS FUERON CANCELADAS?
+{is_canceled:"yes"}
+44224
+
+3¿CUANTAS DE ESAS RESERVAS FUERON CONFIRMADAS?
+{is_canceled:"no"}
+
+4¿CUANTAS RESERVAS EFECTIVAS INCLUYERON NIÑOS?
+{children: {$gte:1}}
+{babies:{$gte:1}}
+
+
+{
+ _id: {children: "$children", babies: "$babies"},
+  fieldN: {
+    $sum:1
+  }
+}
+
+5¿CUAL FUE LA TARIFA PROMEDIO POR NOCHE?
+
+{ _id: "$adr",
+      averageField: {
+        $avg: "$adr"
+      }}
+
+6¿DE QUE PAIS PROVIENEN LOS CLIENTES? ¿CUÁL ES EL MÁS FRECUENTE?País de procedencia
+{
+  _id: "$country",
+  countries: {
+    $addToSet: "$country",
+  },
+}
+
+7¿EL HOTEL RECIBIO CLIENTES TODO EL AÑO O SOLO EN UNA TEMPORADA?
+{
+  _id: "$arrival_date_month",
+  months: {
+    $addToSet: "$arrival_date_day_of_month",
+  },
+}
+
+8¿EN QUE MES RECIBIO MAS CLIENTES?
+{
+      _id: "$arrival_date_month",
+      "frequency": { "$sum": 1 }
+    }
+
+9¿CUAL ES LA ESTANCIA PROMEDIO ENTRE SEMANA?
+{
+  _id: "$stays_in_week_nights",
+  averageField: {
+    $avg: "$stays_in_week_nights",
+  },
+}
+
+10 ¿CUAL ES LA ESTANCIA PROMEDIO EN FIN DE SEMANA?
+
+{
+  _id: "$stays_in_weekend_nights",
+  averageField: {
+    $avg: "$stays_in_weekend_nights",
+  },
+}
+
+
